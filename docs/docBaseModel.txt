@@ -1,0 +1,126 @@
+[EN]
+-----------------------------------------------------------------------------------------
+It defines a custom Django model class named BaseModel, 
+which serves as a base class for other models in a Django application. 
+Here's an overview of its components and functionalities:
+
+Base Model
+ > Class Name: BaseModel
+    Inheritance: Inherits from models.Model, a standard Django model class 
+    that provides a framework for defining database tables.
+
+Fields
+ > created_at (DateTimeField):
+    Automatically set to the current time when a new record is created.
+    Uses auto_now_add=True to ensure it's only set at creation.
+ > updated_at (DateTimeField):
+    Automatically set to the current time whenever the record is saved.
+    Uses auto_now=True to update the timestamp on every save operation.
+ > is_active (BooleanField):
+    Indicates whether the record is active or not.
+    Defaults to True. It's used for soft deleting records.
+
+Meta Class
+ > Purpose: Contains metadata for the model.
+ > Abstract: The abstract = True declaration means this class will not create a database table. Instead, 
+ it's intended to be extended by other models.
+
+Methods
+ > delete(self, *args, **kwargs) - Soft Delete:
+    Overrides the default delete behavior.
+    Instead of deleting the record from the database, it sets is_active to False.
+ > hard_delete(self, *args, **kwargs) - Hard Delete:
+    Performs the actual deletion of the record from the database.
+    Calls the superclass's delete method to perform this operation.
+ > save(self, *args, **kwargs) - Custom Save:
+    Customizes the save behavior.
+    Sets created_at only if the record is new (i.e., no ID yet).
+    Updates updated_at on every save.
+    Calls the superclass's save method to perform the actual database save.
+
+Usage
+ > As a Base Class: 
+    BaseModel is designed to be used as a base class for other Django models. 
+    By inheriting from BaseModel, other models automatically gain the fields and methods defined in it. 
+    This is particularly useful for maintaining consistency across different models regarding creation and 
+    update timestamps and soft deletion functionality.
+
+ > Soft Deletion: 
+    The soft delete functionality allows for disabling records instead of completely removing them from the database, 
+    which can be useful for maintaining data integrity and history.
+
+ > Extensibility: 
+    The custom save method can be extended in subclasses to include additional logic specific to each model.
+
+Conclusion
+    This script is a practical implementation of common patterns in Django model management, such as timestamp tracking and soft deletion. 
+    It demonstrates a clean and reusable way to implement these features, making it easier to manage models across a Django project.
+
+
+[TR]
+-----------------------------------------------------------------------------------------
+BaseModel adında özel bir Django model sınıfı tanımlar, 
+Django uygulamasındaki diğer modeller için bir temel sınıf görevi görür. 
+İşte bileşenlerine ve işlevlerine genel bir bakış:
+
+
+Temel Model
+ > Sınıf Adı: BaseModel
+    Kalıtım: Standart bir Django model sınıfı olan models.Model'den miras alınır 
+    veritabanı tablolarını tanımlamak için bir çerçeve sağlar.
+
+
+Alanlar
+ > created_at (DateTimeField):
+    Yeni bir kayıt oluşturulduğunda otomatik olarak geçerli saate ayarlanır.
+    Yalnızca oluşturma sırasında ayarlandığından emin olmak için auto_now_add=True kullanır.
+ > updated_at (DateTimeField):
+    Kayıt her kaydedildiğinde otomatik olarak geçerli saate ayarlanır.
+    Her kaydetme işleminde zaman damgasını güncellemek için auto_now=True değerini kullanır.
+ > is_active (BooleanField):
+    Kaydın aktif olup olmadığını belirtir.
+    Varsayılan değer True'dur. Kayıtları yumuşak bir şekilde silmek için kullanılır.
+
+
+Meta Sınıfı
+ > Amaç: Model için meta veriler içerir.
+ > Soyut: abstract = True bildirimi, bu sınıfın bir veritabanı tablosu oluşturmayacağı anlamına gelir. Bunun yerine, 
+ diğer modeller tarafından genişletilmesi amaçlanmıştır.
+
+
+Yöntemler
+ > delete(self, *args, **kwargs) - Yumuşak Silme:
+    Varsayılan silme davranışını geçersiz kılar.
+    Kaydı veritabanından silmek yerine is_active değerini False olarak ayarlar.
+ > hard_delete(self, *args, **kwargs) - Sert Silme:
+    Kaydın veritabanından gerçek silme işlemini gerçekleştirir.
+    Bu işlemi gerçekleştirmek için üst sınıfın delete yöntemini çağırır.
+ > save(self, *args, **kwargs) - Özel Kaydetme:
+    Kaydetme davranışını özelleştirir.
+    created_at değerini yalnızca kayıt yeniyse (yani henüz ID yoksa) ayarlar.
+    updated_at değerini her kaydetme işleminde günceller.
+    Gerçek veritabanı kaydetme işlemini gerçekleştirmek için üst sınıfın kaydetme yöntemini çağırır.
+
+
+Kullanım
+ > Temel Sınıf Olarak: 
+    BaseModel, diğer Django modelleri için bir temel sınıf olarak kullanılmak üzere tasarlanmıştır. 
+    BaseModel'den miras alındığında, diğer modeller otomatik olarak bu modelde tanımlanan alanları ve yöntemleri kazanırlar. 
+    Bu, özellikle farklı modeller arasında oluşturma ve oluşturma ile ilgili tutarlılığı korumak için kullanışlıdır. 
+    zaman damgalarını güncelleme ve yumuşak silme işlevi.
+
+
+ > Yumuşak Silme: 
+    Yumuşak silme işlevi, kayıtları veritabanından tamamen kaldırmak yerine devre dışı bırakmaya olanak tanır, 
+    Bu da veri bütünlüğünü ve geçmişini korumak için faydalı olabilir.
+
+
+ > Genişletilebilirlik: 
+    Özel kaydetme yöntemi, her modele özgü ek mantık içerecek şekilde alt sınıflarda genişletilebilir.
+
+
+Sonuç
+    Bu betik, Django model yönetiminde zaman damgası izleme ve yumuşak silme gibi yaygın kalıpların pratik bir uygulamasıdır. 
+    Bu özellikleri uygulamak için temiz ve yeniden kullanılabilir bir yol göstererek bir Django projesindeki modelleri yönetmeyi kolaylaştırır.
+
+Translated with www.DeepL.com/Translator (free version)

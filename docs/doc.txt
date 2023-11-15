@@ -1,0 +1,5 @@
+Create requirements.txt (create and update):
+ > pip freeze > requirements.txt
+
+Install packages from a requirements.txt:
+ > pip install -r requirements.txt

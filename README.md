@@ -42,6 +42,6 @@
 - `README.md`: Provides an introduction and documentation.
 ## 
 > [!WARNING]
-> You need to create db.sqlite3 and env yourself
+> You need to create db.sqlite3 and env
 
 ### from: [github.com/real-shut-down-exe](https://github.com/real-shut-down-exe)
